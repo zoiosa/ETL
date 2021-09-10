@@ -1,9 +1,13 @@
 import requests
 from datetime import datetime
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 
 url_base = 'https://calendarific.com/api/v2/holidays'
-
-key = 'b80154543e8d9c306e3c18d2e4888adac88a39da'
+key = os.getenv('API_KEY')
 country = 'US'
 
 params = {'api_key': key, 
@@ -13,12 +17,55 @@ params = {'api_key': key,
         'day': datetime.today().strftime('%d')}
 
 
-response = requests.get(url_base, params = params).json()
+name=[]
+description=[]
+country=[]
+type_=[]
+date=[]
 
-print(response['response']['holidays'][0]['name'])
+
+try:
+        #extracting and transforming the data
+        response = requests.get(url_base, params = params).json()
+
+        for i in range(len(response['response']['holidays'])):
+                nome = response['response']['holidays'][i]['name']
+                descricao = response['response']['holidays'][i]['description']
+                pais = response['response']['holidays'][i]['country']['name']
+                tipo = response['response']['holidays'][i]['type']
+                data = response['response']['holidays'][i]['date']
+
+                name.append(nome)
+                description.append(descricao)
+                country.append(pais)
+                type_.append(tipo)
+                date.append(data)
+
+except Exception:
+    pass
 
 
-def Crawler():
+Dados = {'Name':name, 
+        'Description':description,
+        'Country':country,
+        'Type':type_,
+        'Date':date}
+
+print(Dados)
+
+#Loading the data
+
+#         import MySQLdb
+# # connect
+# conn = MySQLdb.connect("127.0.0.1","username","passwore","table")
+# x = conn.cursor()
+
+# # write
+# x.execute('INSERT into table (row_date, sita, event) values ("%d", "%d", "%d")' % (row_date, sita, event))
+
+# close
+# conn.commit()
+# conn.close()
 
 
 #['response']['holidays'][0]['name'] = nome do feriado
