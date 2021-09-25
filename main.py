@@ -22,7 +22,7 @@ params = {'api_key': key,
 
 DataFrame = {'name':[],'description':[], 'country':[], 'type':[], 'date':[]}
 
- #extracting and transforming the data
+#extracting and transforming the data
 try:
        
         response = requests.get(url_base, params = params).json()
@@ -45,9 +45,9 @@ except Exception:
 
 
 #Loading the data
-
-       
+     
 # connect
+
 PASSWD = os.getenv('PASSWD')
 
 conn = mysql.connector.connect(host='localhost', user='root' , password=PASSWD ,port='3350', database='holidays')
@@ -62,6 +62,7 @@ x.execute("""CREATE TABLE IF NOT EXISTS holidays.feriados (
 
 print('aberto database com sucesso')
 
+#usando pandas para injetar os dados
 engine = sqlalchemy.create_engine('mysql://root:{}@localhost:3350/holidays'.format(PASSWD))
 
 df = pd.DataFrame(DataFrame)
