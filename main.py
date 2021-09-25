@@ -22,8 +22,9 @@ params = {'api_key': key,
 
 DataFrame = {'name':[],'description':[], 'country':[], 'type':[], 'date':[]}
 
+ #extracting and transforming the data
 try:
-        #extracting and transforming the data
+       
         response = requests.get(url_base, params = params).json()
 
         for i in range(len(response['response']['holidays'])):
@@ -43,13 +44,13 @@ except Exception:
     pass
 
 
-print('tudo bem')
 #Loading the data
 
        
 # connect
+PASSWD = os.getenv('PASSWD')
 
-conn = mysql.connector.connect(host='localhost', user='root' , password="236957Zz!" ,port='3350', database='holidays')
+conn = mysql.connector.connect(host='localhost', user='root' , password=PASSWD ,port='3350', database='holidays')
 x = conn.cursor()
 x.execute("""CREATE TABLE IF NOT EXISTS holidays.feriados (
         name VARCHAR(45),
@@ -61,7 +62,8 @@ x.execute("""CREATE TABLE IF NOT EXISTS holidays.feriados (
 
 print('aberto database com sucesso')
 
-engine = sqlalchemy.create_engine('mysql://root:236957Zz!@localhost:3350/holidays')
+engine = sqlalchemy.create_engine('mysql://root:{}@localhost:3350/holidays'.format(PASSWD))
+
 df = pd.DataFrame(DataFrame)
 
 try:
