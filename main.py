@@ -71,21 +71,6 @@ except:
 
 conn.close()
 
-
-#else:
-
-## write
-#x.execute('INSERT into table (row_date, sita, event) values ("%d", "%d", "%d")' % (row_date, sita, event))
-
-#close
-
-#"""CREATE TABLE feriados (
-        #name VARCHAR(45),
-        #date VARCHAR(50), 
-        #description VARCHAR(45), 
-        #country VARCHAR(20)
-        #PRIMARY KEY (name))"""
-
 #['response']['holidays'][0]['name'] = nome do feriado
 #['response']['holidays'][0]['description'] = descrição do feriado
 #['response']['holidays'][0]['country']['name'] = nome do país
